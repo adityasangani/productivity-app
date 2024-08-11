@@ -9,6 +9,11 @@ const jwtSecret = process.env.JWT_SECRET;
 
 const prisma = new PrismaClient();
 
+const capitalizeName = (name) => {
+  if (!name) return "";
+  return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+};
+
 router.use(cookieParser());
 router.use(
   cors({
@@ -19,17 +24,26 @@ router.use(
 
 router.post("/signup", async (req, res) => {
   const userDetails = req.body;
+  const firstName = userDetails.firstName;
+  const lastName = userDetails.lastName;
   try {
     const newUser = await prisma.user.create({
       data: {
+        firstName: capitalizeName(firstName),
+        lastName: capitalizeName(lastName),
         email: userDetails.email,
-        name: userDetails.name,
         password: userDetails.password,
       },
     });
     const userId = newUser.id;
-    const userName = newUser.name;
-    const token = jwt.sign({ userId, userName }, jwtSecret);
+    const initials = newUser.firstName[0] + newUser.lastName[0];
+    const userFirstName = newUser.firstName;
+    const userLastName = newUser.lastName;
+    const userEmail = newUser.email;
+    const token = jwt.sign(
+      { userId, initials, userFirstName, userLastName, userEmail },
+      jwtSecret
+    );
     res.cookie("token", token);
     res.send({
       message: "New user created.",
@@ -58,8 +72,14 @@ router.post("/signin", async (req, res) => {
     });
   } else {
     const userId = existingUser.id;
-    const userName = existingUser.name;
-    const token = jwt.sign({ userId, userName }, jwtSecret);
+    const initials = existingUser.name;
+    const userFirstName = existingUser.firstName;
+    const userLastName = existingUser.lastName;
+    const userEmail = existingUser.email;
+    const token = jwt.sign(
+      { userId, initials, userFirstName, userLastName, userEmail },
+      jwtSecret
+    );
     res.cookie("token", token);
     res.json({
       message: "User found",

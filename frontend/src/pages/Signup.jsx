@@ -47,8 +47,13 @@ const Signup = () => {
   return (
     <div className="h-screen w-screen bg-gradient-blue grid grid-cols-12 ">
       <div className="col-span-4 flex flex-col">
-        <div className="m-5 cursor-pointer">
-          <Logo size="8" />
+        <div
+          onClick={() => {
+            navigate("/");
+          }}
+          className="m-5 cursor-pointer"
+        >
+          <Logo size={8} />
         </div>
         <div className="m-7 text-white font-bold text-6xl">
           Track. Focus. Achieve.
@@ -92,6 +97,7 @@ const Signup = () => {
                 inputname="Email"
               />
               <LabeledInput
+                type="password"
                 onChange={(e) => {
                   setPostInputs({
                     ...postInputs,

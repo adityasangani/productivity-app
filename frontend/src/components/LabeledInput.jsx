@@ -1,6 +1,6 @@
 import React from "react";
 
-const LabeledInput = ({ onChange, inputname }) => {
+const LabeledInput = ({ onChange, inputname, type = "text" }) => {
   return (
     <div className="flex flex-col relative w-full mb-6">
       <label
@@ -10,7 +10,7 @@ const LabeledInput = ({ onChange, inputname }) => {
         {inputname}
       </label>
       <input
-        type="text"
+        type={type}
         onChange={onChange}
         className="w-full h-11 px-4 py-2 text-md border border-grey rounded-md"
       />

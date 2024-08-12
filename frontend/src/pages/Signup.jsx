@@ -1,11 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import illustration from "../assets/illustration.png";
 import LabeledInput from "../components/LabeledInput";
 import Logo from "../components/Logo";
 import { useNavigate } from "react-router-dom";
+import { userAtom } from "../store/atoms/atoms";
+import { BACKEND_URL } from "../config";
+import { jwtDecode } from "jwt-decode";
+import { useRecoilState } from "recoil";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useRecoilState(userAtom);
+  const [postInputs, setPostInputs] = useState({
+    email: "",
+    firstName: "",
+    lastName: "",
+    password: "",
+  });
+  async function sendRequest() {
+    try {
+      const response = await axios.post(
+        `${BACKEND_URL}/api/v1/auth/signup`,
+        postInputs,
+        {
+          withCredentials: true,
+        }
+      );
+      const token = Cookies.get("token");
+      if (token) {
+        const decodedToken = jwtDecode(token);
+        setUser({
+          userId: decodedToken.userId,
+          initials: decodedToken.initials,
+          firstName: decodedToken.firstName,
+          lastName: decodedToken.lastName,
+          email: decodedToken.email,
+        });
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      console.error("Error signing up: ", error);
+    }
+  }
   return (
     <div className="h-screen w-screen bg-gradient-blue grid grid-cols-12 ">
       <div className="col-span-4 flex flex-col">
@@ -25,12 +63,47 @@ const Signup = () => {
           <div className="flex mt-10">
             <div className="flex flex-col gap-2 flex-grow">
               <div className="flex gap-5">
-                <LabeledInput inputname="First Name" />
-                <LabeledInput inputname="Last Name" />
+                <LabeledInput
+                  onChange={(e) => {
+                    setPostInputs({
+                      ...postInputs,
+                      firstName: e.target.value,
+                    });
+                  }}
+                  inputname="First Name"
+                />
+                <LabeledInput
+                  onChange={(e) => {
+                    setPostInputs({
+                      ...postInputs,
+                      lastName: e.target.value,
+                    });
+                  }}
+                  inputname="Last Name"
+                />
               </div>
-              <LabeledInput inputname="Email" />
-              <LabeledInput inputname="Password" />
-              <button className="bg-black text-white text-sm font-medium h-11 rounded-md transition-transform duration-150 transform active:scale-95 active:shadow-inner">
+              <LabeledInput
+                onChange={(e) => {
+                  setPostInputs({
+                    ...postInputs,
+                    email: e.target.value,
+                  });
+                }}
+                inputname="Email"
+              />
+              <LabeledInput
+                onChange={(e) => {
+                  setPostInputs({
+                    ...postInputs,
+                    password: e.target.value,
+                  });
+                }}
+                inputname="Password"
+              />
+              <button
+                onClick={sendRequest}
+                className="bg-black text-white text-sm font-medium h-11 rounded-md transition-transform duration-150 transform active:scale-95 active:shadow-inner"
+              >
                 Create Account
               </button>
               <div className="text-grey text-sm">

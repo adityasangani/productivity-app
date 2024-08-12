@@ -44,7 +44,12 @@ router.post("/signup", async (req, res) => {
       { userId, initials, userFirstName, userLastName, userEmail },
       jwtSecret
     );
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      sameSite: "lax",
+      maxAge: 3 * 24 * 60 * 60 * 1000,
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+    });
     res.send({
       message: "New user created.",
       token,
@@ -80,7 +85,13 @@ router.post("/signin", async (req, res) => {
       { userId, initials, userFirstName, userLastName, userEmail },
       jwtSecret
     );
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      sameSite: "lax",
+      maxAge: 3 * 24 * 60 * 60 * 1000,
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+    });
+
     res.json({
       message: "User found",
       userId,

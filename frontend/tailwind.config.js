@@ -13,6 +13,7 @@ export default {
         buttonYellow: "#FFCA1D",
         buttonYellowHover: "#E5B219",
         blueBorder: "#3534A7",
+        greyBorder: "#AFAFB2",
       },
       backgroundImage: {
         "gradient-blue": "linear-gradient(to top right, #4f46e5, #8b5cf6)",

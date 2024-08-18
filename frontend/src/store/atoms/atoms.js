@@ -9,4 +9,5 @@ export const userAtom = atom({
     lastName: "",
     email: "",
   },
+  persistent: true,
 });

@@ -14,9 +14,13 @@ export default {
         buttonYellowHover: "#E5B219",
         blueBorder: "#3534A7",
         greyBorder: "#AFAFB2",
+        faqGrey: "#F7F7FC",
+        navigationBorder: "#C5C5C5",
+        dashboardBg: "#F4F8F9",
       },
       backgroundImage: {
         "gradient-blue": "linear-gradient(to top right, #4f46e5, #8b5cf6)",
+        "white-gradient": "linear-gradient(to bottom, #ffffff, #e6e6e6)",
       },
     },
   },

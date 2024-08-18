@@ -24,6 +24,7 @@ router.use(
 
 router.post("/signup", async (req, res) => {
   const userDetails = req.body;
+  console.log(userDetails);
   const firstName = userDetails.firstName;
   const lastName = userDetails.lastName;
   try {
@@ -35,6 +36,7 @@ router.post("/signup", async (req, res) => {
         password: userDetails.password,
       },
     });
+    console.log("hi");
     const userId = newUser.id;
     const initials = newUser.firstName[0] + newUser.lastName[0];
     const userFirstName = newUser.firstName;

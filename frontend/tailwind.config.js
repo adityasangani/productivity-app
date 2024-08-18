@@ -17,6 +17,8 @@ export default {
         faqGrey: "#F7F7FC",
         navigationBorder: "#C5C5C5",
         dashboardBg: "#F4F8F9",
+        leftNavCompSelect: "#4339F2",
+        leftNavCompDeselect: "#787486",
       },
       backgroundImage: {
         "gradient-blue": "linear-gradient(to top right, #4f46e5, #8b5cf6)",

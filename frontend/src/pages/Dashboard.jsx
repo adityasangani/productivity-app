@@ -17,9 +17,3 @@ export const Dashboard = () => {
     </>
   );
 };
-
-{
-  /* <DashboardFrame>
-        <DFC1 />
-      </DashboardFrame> */
-}

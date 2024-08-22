@@ -3,6 +3,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
+      },
       colors: {
         midwhite: "#FAFAFB",
         skyblue: "#4B4AEF",
@@ -19,7 +22,9 @@ export default {
         dashboardBg: "#F4F8F9",
         leftNavCompSelect: "#4339F2",
         leftNavCompDeselect: "#787486",
+        leftNavCompSelectLight: "#554CF3",
         calendarPassedDates: "#D6D4D4",
+        descriptionBlue: "#6B50F6",
       },
       backgroundImage: {
         "gradient-blue": "linear-gradient(to top right, #4f46e5, #8b5cf6)",

@@ -24,7 +24,7 @@ export const LandingPage = () => {
           <div className="font-semibold text-sm">ProductivityPro Inc.</div>
         </div>
         <div className="ml-10 text-grey mt-5 text-xs">
-          © 2023 ProductivityPro Inc. All rights reserved.
+          © 2024 ProductivityPro Inc. All rights reserved.
         </div>
       </div>
     </>

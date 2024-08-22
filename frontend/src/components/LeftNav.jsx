@@ -13,7 +13,7 @@ import setting from "../assets/setting.png";
 import settingDeselect from "../assets/settingDeselect.png";
 import { LeftNavComp } from "./LeftNavComp";
 
-export const LeftNav = () => {
+export const LeftNav = ({ setSelectedComponent }) => {
   const [selected, setSelected] = useState("dashboard");
   function onClick(e) {
     setSelected(e);
@@ -33,6 +33,7 @@ export const LeftNav = () => {
         color={selected === "dashboard"}
         onClick={() => {
           onClick("dashboard");
+          setSelectedComponent("dashboard");
         }}
       />
       <LeftNavComp
@@ -42,6 +43,7 @@ export const LeftNav = () => {
         color={selected === "task"}
         onClick={() => {
           onClick("task");
+          setSelectedComponent("task");
         }}
       />
 
@@ -52,6 +54,7 @@ export const LeftNav = () => {
         color={selected === "pomodoro"}
         onClick={() => {
           onClick("pomodoro");
+          setSelectedComponent("pomodoro");
         }}
       />
 
@@ -62,6 +65,7 @@ export const LeftNav = () => {
         color={selected === "tracker"}
         onClick={() => {
           onClick("tracker");
+          setSelectedComponent("tracker");
         }}
       />
 
@@ -72,6 +76,7 @@ export const LeftNav = () => {
         color={selected === "setting"}
         onClick={() => {
           onClick("setting");
+          setSelectedComponent("setting");
         }}
       />
     </div>

@@ -10,7 +10,6 @@ const isAuthenticated = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, jwtSecret);
     if (decoded) {
-      console.log("user is authenticated");
       req.userId = decoded.userId;
       next();
     } else {

@@ -22,7 +22,7 @@ const NewTask = ({ newTaskClick, setNewTaskClick }) => {
       ...task,
       label: label,
     });
-    setLabelClick(false); // Close the dropdown after selection
+    setLabelClick(false);
   };
 
   const labels = ["Study", "Gym", "Code", "Meditate"];
@@ -81,7 +81,7 @@ const NewTask = ({ newTaskClick, setNewTaskClick }) => {
           className="w-full h-11 p-2 outline-0 text-sm"
         />
         <div className="flex items-center h-11 bg-white p-2">
-          <div className="relative flex justify-center items-center w-36 h-8 border-2 border-descriptionBlue text-sm rounded-sm cursor-pointer">
+          <div className="relative flex justify-center items-center md:w-36 md:h-8 border-2 border-descriptionBlue text-sm rounded-sm cursor-pointer">
             <div
               onClick={() => setDescriptionClick(!descriptionClick)}
               className="text-descriptionBlue text-sm"

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import NewTask from "./NewTask";
+import { taskAtom, userAtom } from "../store/atoms/atoms";
+import { useRecoilValue } from "recoil";
 
 export const TaskComponent = () => {
+  const task = useRecoilValue(taskAtom);
   const [newTaskClick, setNewTaskClick] = useState(false);
   return (
     <div>

@@ -31,6 +31,7 @@ const Signup = () => {
       const token = Cookies.get("token");
       if (token) {
         const decodedToken = jwtDecode(token);
+        console.log(decodedToken);
         setUser({
           userId: decodedToken.userId,
           initials: decodedToken.initials,

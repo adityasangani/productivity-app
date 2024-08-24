@@ -11,3 +11,9 @@ export const userAtom = atom({
   },
   persistent: true,
 });
+
+export const taskAtom = atom({
+  key: "taskAtom",
+  default: {},
+  persistent: true,
+});

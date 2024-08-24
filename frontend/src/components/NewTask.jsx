@@ -1,18 +1,46 @@
 import React, { useState } from "react";
 import Switcher1 from "./Switcher1";
+import { taskAtom, userAtom } from "../store/atoms/atoms";
+import { useRecoilState } from "recoil";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+import axios from "axios";
+import { BACKEND_URL } from "../config";
 
 const NewTask = ({ newTaskClick, setNewTaskClick }) => {
   const [descriptionClick, setDescriptionClick] = useState(false);
   const [toggleClick, setToggleClick] = useState(false);
   const [labelClick, setLabelClick] = useState(false);
   const [selectedLabel, setSelectedLabel] = useState("Choose Label");
+  const token = Cookies.get("token");
+  const decodedToken = jwtDecode(token);
+  const userId = decodedToken.userId;
 
   const handleLabelSelect = (label) => {
     setSelectedLabel(label);
+    setTask({
+      ...task,
+      label: label,
+    });
     setLabelClick(false); // Close the dropdown after selection
   };
 
   const labels = ["Study", "Gym", "Code", "Meditate"];
+  const [task, setTask] = useRecoilState(taskAtom);
+
+  async function sendTaskBackend() {
+    try {
+      const response = await axios.post(
+        `${BACKEND_URL}/api/v1/user/tasks/create`,
+        task,
+        {
+          withCredentials: true,
+        }
+      );
+    } catch (error) {
+      console.error("Unable to send task to backend, error:  ", error);
+    }
+  }
 
   return (
     <div className="w-3/4 bg-white rounded-sm flex flex-col p-6">
@@ -42,7 +70,16 @@ const NewTask = ({ newTaskClick, setNewTaskClick }) => {
       </div>
 
       <div className="flex shadow-sm border rounded-sm">
-        <input type="text" className="w-full h-11 p-2 outline-0 text-sm" />
+        <input
+          type="text"
+          onChange={(e) => {
+            setTask({
+              ...task,
+              title: e.target.value,
+            });
+          }}
+          className="w-full h-11 p-2 outline-0 text-sm"
+        />
         <div className="flex items-center h-11 bg-white p-2">
           <div className="relative flex justify-center items-center w-36 h-8 border-2 border-descriptionBlue text-sm rounded-sm cursor-pointer">
             <div
@@ -61,7 +98,16 @@ const NewTask = ({ newTaskClick, setNewTaskClick }) => {
             DESCRIPTION
           </label>
           <div className="flex shadow-sm border rounded-sm">
-            <input type="text" className="w-full h-11 p-2 outline-0 text-sm" />
+            <input
+              type="text"
+              onChange={(e) => {
+                setTask({
+                  ...task,
+                  description: e.target.value,
+                });
+              }}
+              className="w-full h-11 p-2 outline-0 text-sm"
+            />
           </div>
         </div>
       )}
@@ -102,7 +148,14 @@ const NewTask = ({ newTaskClick, setNewTaskClick }) => {
       </div>
 
       <div
-        onClick={() => setNewTaskClick(!newTaskClick)}
+        onClick={() => {
+          setNewTaskClick(!newTaskClick);
+          setTask({
+            ...task,
+            userId: userId,
+          });
+          sendTaskBackend();
+        }}
         className="flex justify-center w-full mt-2 border bg-leftNavCompSelect h-10 items-center rounded-md cursor-pointer hover:bg-leftNavCompSelectLight transition-transform duration-150 transform active:scale-95 active:shadow-inner"
       >
         <div className="text-sm text-white">Create Task</div>

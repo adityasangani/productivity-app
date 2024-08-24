@@ -27,6 +27,7 @@ export const Dashboard = () => {
         return <DFC1 />;
     }
   };
+
   return (
     <>
       <LeftNav setSelectedComponent={setSelectedComponent} />

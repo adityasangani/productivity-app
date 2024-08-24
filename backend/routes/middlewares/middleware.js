@@ -11,6 +11,7 @@ const isAuthenticated = (req, res, next) => {
     const decoded = jwt.verify(token, jwtSecret);
     if (decoded) {
       console.log("user is authenticated");
+      req.userId = decoded.userId;
       next();
     } else {
       res.status(401).json({ message: "Unauthorized: Invalid token" });

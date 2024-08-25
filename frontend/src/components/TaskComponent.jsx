@@ -21,7 +21,12 @@ export const TaskComponent = () => {
       }
     };
     fetchTasks();
-  }, [allTasks]);
+  }, []);
+
+  const handleAddTask = (newTask) => {
+    setAllTasks((prevTasks) => [...prevTasks, newTask]);
+  };
+
   return (
     <div>
       <button
@@ -44,6 +49,7 @@ export const TaskComponent = () => {
               <NewTask
                 setNewTaskClick={setNewTaskClick}
                 newTaskClick={newTaskClick}
+                onAddTask={handleAddTask}
               />
             </div>
           </div>

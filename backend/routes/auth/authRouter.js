@@ -42,6 +42,7 @@ router.post("/signup", async (req, res) => {
     const userFirstName = newUser.firstName;
     const userLastName = newUser.lastName;
     const userEmail = newUser.email;
+    req.userId = userId;
     const token = jwt.sign(
       { userId, initials, userFirstName, userLastName, userEmail },
       jwtSecret

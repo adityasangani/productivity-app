@@ -7,7 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 
-const NewTask = ({ newTaskClick, setNewTaskClick }) => {
+const NewTask = ({ newTaskClick, setNewTaskClick, onAddTask }) => {
   const [descriptionClick, setDescriptionClick] = useState(false);
   const [toggleClick, setToggleClick] = useState(false);
   const [labelClick, setLabelClick] = useState(false);
@@ -37,6 +37,7 @@ const NewTask = ({ newTaskClick, setNewTaskClick }) => {
           withCredentials: true,
         }
       );
+      onAddTask(response.data.task);
     } catch (error) {
       console.error("Unable to send task to backend, error:  ", error);
     }

@@ -34,7 +34,7 @@ model Task {
   title String
   description String?
   label String
-  status String @default("upcoming")
+  status String @default("todo")
   sessions  Session[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt 

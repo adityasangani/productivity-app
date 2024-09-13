@@ -29,7 +29,10 @@ router.post("/tasks/create", isAuthenticated, async (req, res) => {
         title: taskDetails.title,
         description: taskDetails.description || "",
         label: taskDetails.label,
-        userId: taskDetails.userId,
+        status: taskDetails.status || "todo",
+        user: {
+          connect: { id: req.userId },
+        },
       },
     });
     res.status(201).json({
@@ -37,7 +40,7 @@ router.post("/tasks/create", isAuthenticated, async (req, res) => {
       task: newTask,
     });
   } catch (e) {
-    return res.status(411).json({
+    return res.status(500).json({
       message: "Unable to create task",
       error: e.message,
     });
@@ -95,6 +98,7 @@ router.get("/tasks/:id", isAuthenticated, async (req, res) => {
 router.put("/tasks/:id", isAuthenticated, async (req, res) => {
   const taskId = parseInt(req.params.id);
   const userId = req.userId;
+  const { title, description, label, status } = req.body;
   try {
     const updatedTask = await prisma.task.update({
       where: {
@@ -105,6 +109,7 @@ router.put("/tasks/:id", isAuthenticated, async (req, res) => {
         title,
         description,
         label,
+        status,
       },
     });
     res.status(200).json({
@@ -123,23 +128,17 @@ router.delete("/tasks/:id", isAuthenticated, async (req, res) => {
   const taskId = parseInt(req.params.id);
   const userId = req.userId;
   try {
-    const task = await prisma.task.findFirst({
+    const deleteResult = await prisma.task.deleteMany({
       where: {
         id: taskId,
-        userId,
+        userId: userId,
       },
     });
-    if (!task) {
+    if (deleteResult.count === 0) {
       return res.status(404).json({
         message: "Task not found or not authorized to delete",
       });
     }
-    await prisma.task.delete({
-      where: {
-        id: taskId,
-        userId,
-      },
-    });
     res.status(200).json({
       message: "Task deleted successfully",
     });

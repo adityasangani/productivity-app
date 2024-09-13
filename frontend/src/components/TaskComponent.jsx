@@ -1,14 +1,27 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NewTask from "./NewTask";
-import { taskAtom, userAtom } from "../store/atoms/atoms";
-import { useRecoilValue } from "recoil";
 import { BACKEND_URL } from "../config";
+import { TodoTask } from "./TodoTask";
+import { TaskColumn } from "./TaskColumn";
 
 export const TaskComponent = () => {
-  // const task = useRecoilValue(taskAtom);
   const [newTaskClick, setNewTaskClick] = useState(false);
   const [allTasks, setAllTasks] = useState([]);
+  const [activeCard, setActiveCard] = useState(null);
+  const onDrop = (status, position) => {
+    console.log(
+      `${activeCard} is going to be dropped at ${status} at the position ${position}`
+    );
+    if (activeCard === null || activeCard === undefined) return;
+    const taskToMove = allTasks[activeCard];
+    const updatedTasks = allTasks.filter((task, index) => index !== activeCard);
+    updatedTasks.splice(position, 0, {
+      ...taskToMove,
+      status: status,
+    });
+    setAllTasks(updatedTasks);
+  };
   useEffect(() => {
     const fetchTasks = async () => {
       try {
@@ -57,25 +70,27 @@ export const TaskComponent = () => {
       )}
       <div className="mt-10">
         <div className="grid grid-cols-3">
-          <div className="flex mx-2 rounded-md p-3 border-2 flex-col">
-            <div className="text-sm">To do</div>
-
-            <div className="flex flex-col gap-5">
-              {allTasks.map((task) => (
-                <div className="w-60 border-2 flex flex-col" key={task.id}>
-                  <h3>{task.title}</h3>
-                  <p>{task.description}</p>
-                  <p>{task.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="flex mx-2 rounded-md p-3 border-2 flex-col">
-            <div className="text-sm">On Progress</div>
-          </div>
-          <div className="flex mx-2 rounded-md p-3 border-2 flex-col">
-            <div className="text-sm">Done</div>
-          </div>
+          <TaskColumn
+            title={"To do"}
+            tasks={allTasks}
+            status={"todo"}
+            setActiveCard={setActiveCard}
+            onDrop={onDrop}
+          />
+          <TaskColumn
+            title={"On Progress"}
+            tasks={allTasks}
+            status={"progress"}
+            setActiveCard={setActiveCard}
+            onDrop={onDrop}
+          />
+          <TaskColumn
+            title={"Done"}
+            tasks={allTasks}
+            status={"done"}
+            setActiveCard={setActiveCard}
+            onDrop={onDrop}
+          />
         </div>
       </div>
     </div>

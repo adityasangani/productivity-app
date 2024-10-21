@@ -6,15 +6,16 @@ export const TaskColumn = ({ title, tasks, status, setActiveCard, onDrop }) => {
   return (
     <div className="mx-3">
       {/* Title above the box */}
-      <div className="text-sm font-semibold mb-2 mx-2">{title}</div>
+      {/* <div className="text-sm font-semibold mb-2 mx-2">{title}</div> */}
 
       {/* Content box */}
-      <div className="flex rounded-md p-3 border-2 flex-col">
+      <div className="flex rounded-md px-3 flex-col">
+        <div className="text-sm font-semibold mx-2 mb-2">{title}</div>
         {/* DropArea at the top */}
         <DropArea onDrop={() => onDrop(status, 0)} />
 
         {/* List of tasks filtered by status */}
-        <div className="flex flex-col gap-3 mt-1">
+        <div className="flex flex-col">
           {tasks.map(
             (task, index) =>
               task.status === status && (

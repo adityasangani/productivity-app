@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NewTask from "./NewTask";
 import { BACKEND_URL } from "../config";
-import { TodoTask } from "./TodoTask";
 import { TaskColumn } from "./TaskColumn";
 
 export const TaskComponent = () => {
@@ -10,9 +9,6 @@ export const TaskComponent = () => {
   const [allTasks, setAllTasks] = useState([]);
   const [activeCard, setActiveCard] = useState(null);
   const onDrop = (status, position) => {
-    console.log(
-      `${activeCard} is going to be dropped at ${status} at the position ${position}`
-    );
     if (activeCard === null || activeCard === undefined) return;
     const taskToMove = allTasks[activeCard];
     const updatedTasks = allTasks.filter((task, index) => index !== activeCard);

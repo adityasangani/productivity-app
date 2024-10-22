@@ -38,7 +38,7 @@ export const TodoTask = ({
         </div>
       </div>
       <h3 className="font-bold text-md mx-3">{title}</h3>
-      <p className="text-sm text-gray-500 mx-3 mb-5">{description}</p>
+      <p className="text-sm text-gray-500 mx-3 mb-5 mt-2">{description}</p>
     </div>
   );
 };

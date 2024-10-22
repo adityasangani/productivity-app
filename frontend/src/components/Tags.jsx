@@ -17,7 +17,7 @@ const tagsTxt = {
 const Tags = ({ tagName }) => {
   return (
     <div
-      className={`${tagsBg[tagName]} ${tagsTxt[tagName]} text-sm rounded-md font-medium p-1 text`}
+      className={`${tagsBg[tagName]} ${tagsTxt[tagName]} text-sm rounded-md font-medium px-3 py-1 text`}
     >
       {tagName}
     </div>

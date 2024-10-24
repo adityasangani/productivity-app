@@ -1,5 +1,7 @@
 import React from "react";
 
-export const SettingComponent = () => {
+const SettingComponent = () => {
   return <div>SettingComponent</div>;
 };
+
+export default SettingComponent;

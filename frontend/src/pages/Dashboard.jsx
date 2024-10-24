@@ -6,8 +6,8 @@ import { DashboardFrame } from "../components/DashboardFrame";
 import { DFC1 } from "../components/DFC1";
 import { TaskComponent } from "../components/TaskComponent";
 import { TrackerComponent } from "../components/TrackerComponent";
-import { SettingComponent } from "../components/SettingComponent";
 import { PomodoroComponent } from "../components/PomodoroComponent";
+import SettingComponent from "../components/SettingComponent";
 
 export const Dashboard = () => {
   const [selectedComponent, setSelectedComponent] = useState("dashboard");

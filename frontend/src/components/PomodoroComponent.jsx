@@ -11,6 +11,11 @@ export const PomodoroComponent = () => {
   const [isRunning, setIsRunning] = useState(false);
   let selectedElementIDs = ["pomodoro", "shortbreak", "longbreak"];
   const [selectedElement, setSelectedElement] = useState("pomodoro");
+  const [counter, setCounter] = useState(1);
+  const [timeCompleted, setTimeCompleted] = useState([]);
+  const labels = ["STUDY", "GYM", "CODE", "MEDITATE"];
+  const [selectedLabel, setSelectedLabel] = useState("STUDY");
+  const [labelClick, setLabelClick] = useState(false);
 
   useEffect(() => {
     let intervalRef;
@@ -30,12 +35,46 @@ export const PomodoroComponent = () => {
     return () => clearInterval(intervalRef);
   }, [isRunning, seconds, minutes]);
 
+  const increaseCounter = () => {
+    if (selectedElement === "pomodoro") {
+      setCounter(counter + 1);
+      if (counter % 4 != 0) {
+        setMinutes(shortBreak);
+        setSeconds(0);
+        setSelectedElement("shortbreak");
+      } else {
+        setMinutes(longBreak);
+        setSeconds(0);
+        setSelectedElement("longbreak");
+      }
+    } else if (selectedElement === "shortbreak") {
+      setSelectedElement("pomodoro");
+      setMinutes(pomodoroTimer);
+      setSeconds(0);
+    } else if (selectedElement === "longbreak") {
+      setSelectedElement("pomodoro");
+      setMinutes(pomodoroTimer);
+      setSeconds(0);
+    }
+  };
+  const handleReset = () => {
+    setCounter(1);
+    setMinutes(pomodoroTimer);
+    setSeconds(0);
+    setSelectedElement("pomodoro");
+  };
+
   const handleStartStop = () => {
     setIsRunning(!isRunning);
   };
 
+  const handleLabelSelect = (label) => {
+    setSelectedLabel(label);
+    setLabelClick(false);
+  };
+
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center ">
       {settingClick && (
         <>
           {/* Overlay */}
@@ -67,7 +106,7 @@ export const PomodoroComponent = () => {
           selectedElement === "pomodoro" && "bg-yellow-300"
         } ${selectedElement === "shortbreak" && "bg-blue-300"} ${
           selectedElement === "longbreak" && "bg-purple-300"
-        } w-1/2 mx-auto mt-5 rounded-md items-center gap-9 p-5 transition duration-700 ease-in-out`}
+        } w-3/4 mx-auto mt-5 rounded-md items-center gap-12 p-5 transition duration-700 ease-in-out`}
       >
         <div className="flex justify-center gap-2">
           <div
@@ -106,6 +145,36 @@ export const PomodoroComponent = () => {
           >
             Long Break
           </div>
+          {/* <div>
+            <div
+              className={`py-1 px-2 text-sm rounded-md hover:bg-opacity-85 transition duration-150 ease-in-out cursor-pointer 
+                ${
+                  selectedElement === "longbreak" &&
+                  "bg-purple-500 bg-opacity-75"
+                } ${
+                selectedElement === "shortbreak" && "bg-blue-500 bg-opacity-75"
+              }  ${
+                selectedElement === "pomodoro" && "bg-yellow-500 bg-opacity-75"
+              }
+              }`}
+              onClick={() => setLabelClick(!labelClick)}
+            >
+              <div className="text-sm ">{selectedLabel}</div>
+            </div>
+            {labelClick && (
+              <ul className="absolute w-full mt-2 bg-white border rounded-md shadow-md z-10">
+                {labels.map((label) => (
+                  <li
+                    key={label}
+                    className="px-4 py-2 cursor-pointer hover:bg-gray-200"
+                    onClick={() => handleLabelSelect(label)}
+                  >
+                    {label}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div> */}
           <div
             onClick={() => setSettingClick(true)}
             className="ml-16 py-1 px-2 cursor-pointer"
@@ -116,7 +185,7 @@ export const PomodoroComponent = () => {
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              class="size-5"
+              class="size-5 hover:text-gray-600"
             >
               <path
                 stroke-linecap="round"
@@ -136,14 +205,71 @@ export const PomodoroComponent = () => {
           {seconds < 10 ? "0" + seconds : seconds}
           {/* Display time in MM:SS */}
         </div>
-        <button
-          onClick={handleStartStop}
-          className="rounded-md shadow-md p-3 w-32 text-lg font-bold bg-red-500"
-        >
-          {isRunning ? "PAUSE" : "START"}
-        </button>
+        <div className="flex items-center justify-center mb-4">
+          <button
+            className="rounded-md  shadow-md ml-6 p-3 w-32 text-lg font-bold bg-red-500"
+            onClick={() => setLabelClick(!labelClick)}
+          >
+            <div className="">{selectedLabel}</div>
+          </button>
+          {labelClick && (
+            <ul className="absolute left-64 ml-2 w-32 top-80 text-sm mt-6 bg-white border rounded-md shadow-md z-10">
+              {labels.map((label) => (
+                <li
+                  key={label}
+                  className="px-4 py-2 cursor-pointer hover:bg-gray-200"
+                  onClick={() => {
+                    handleLabelSelect(label);
+                  }}
+                >
+                  {label}
+                </li>
+              ))}
+            </ul>
+          )}
+          <button
+            onClick={handleStartStop}
+            className="rounded-md  shadow-md ml-6 p-3 w-32 text-lg font-bold bg-red-500"
+          >
+            {isRunning ? "PAUSE" : "START"}
+          </button>
+          <button
+            onClick={handleReset}
+            className="rounded-md ml-8 shadow-md p-3 w-32 text-lg font-bold bg-red-500"
+          >
+            RESET
+          </button>
+          <div
+            className="relative left-7 cursor-pointer"
+            onClick={increaseCounter}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-9 hover:text-gray-600"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 0 1 0 1.954l-7.108 4.061A1.125 1.125 0 0 1 3 16.811V8.69ZM12.75 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 0 1 0 1.954l-7.108 4.061a1.125 1.125 0 0 1-1.683-.977V8.69Z"
+              />
+            </svg>
+          </div>
+        </div>
       </div>
-      <div>hi</div>
+      <div className="flex flex-col mt-5 items-center gap-1">
+        <div className="text-gray-400">
+          #<span>{counter}</span>
+        </div>
+        <div>
+          {selectedElement === "pomodoro"
+            ? "Time to focus!"
+            : "Time for a break!"}
+        </div>
+      </div>
     </div>
   );
 };

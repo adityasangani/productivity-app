@@ -7,6 +7,7 @@ export const TodoTask = ({
   label,
   setActiveCard,
   index,
+  status,
 }) => {
   return (
     <div
@@ -14,7 +15,9 @@ export const TodoTask = ({
       draggable
       key={id}
       onDragStart={() => setActiveCard(index)}
-      onDragEnd={() => setActiveCard(null)}
+      onDragEnd={async () => {
+        setActiveCard(null);
+      }}
     >
       <div className="flex justify-between m-3">
         <div className="">
@@ -27,7 +30,7 @@ export const TodoTask = ({
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="size-6"
+            className="size-6"
           >
             <path
               stroke-linecap="round"

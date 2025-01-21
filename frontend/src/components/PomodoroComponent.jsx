@@ -58,10 +58,16 @@ export const PomodoroComponent = () => {
     }
   };
   const handleReset = () => {
-    setCounter(1);
-    setMinutes(pomodoroTimer);
-    setSeconds(0);
-    setSelectedElement("pomodoro");
+    if (
+      confirm(
+        "You will lose all your progress. Are you sure you want to reset?"
+      )
+    ) {
+      setCounter(1);
+      setMinutes(pomodoroTimer);
+      setSeconds(0);
+      setSelectedElement("pomodoro");
+    }
   };
 
   const handleStartStop = () => {
@@ -145,36 +151,11 @@ export const PomodoroComponent = () => {
           >
             Long Break
           </div>
-          {/* <div>
-            <div
-              className={`py-1 px-2 text-sm rounded-md hover:bg-opacity-85 transition duration-150 ease-in-out cursor-pointer 
-                ${
-                  selectedElement === "longbreak" &&
-                  "bg-purple-500 bg-opacity-75"
-                } ${
-                selectedElement === "shortbreak" && "bg-blue-500 bg-opacity-75"
-              }  ${
-                selectedElement === "pomodoro" && "bg-yellow-500 bg-opacity-75"
-              }
-              }`}
-              onClick={() => setLabelClick(!labelClick)}
-            >
-              <div className="text-sm ">{selectedLabel}</div>
-            </div>
-            {labelClick && (
-              <ul className="absolute w-full mt-2 bg-white border rounded-md shadow-md z-10">
-                {labels.map((label) => (
-                  <li
-                    key={label}
-                    className="px-4 py-2 cursor-pointer hover:bg-gray-200"
-                    onClick={() => handleLabelSelect(label)}
-                  >
-                    {label}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div> */}
+          <div onClick={() => {
+            
+          }} className="py-1 px-2 text-sm rounded-md cursor-pointer bg-orange-500">
+            Save Progress
+          </div>
           <div
             onClick={() => setSettingClick(true)}
             className="ml-16 py-1 px-2 cursor-pointer"
@@ -200,7 +181,7 @@ export const PomodoroComponent = () => {
             </svg>
           </div>
         </div>
-        <div className="text-9xl flex">
+        <div className="text-9xl flex font-bold">
           {minutes < 10 ? "0" + minutes : minutes}:
           {seconds < 10 ? "0" + seconds : seconds}
           {/* Display time in MM:SS */}
@@ -213,7 +194,7 @@ export const PomodoroComponent = () => {
             <div className="">{selectedLabel}</div>
           </button>
           {labelClick && (
-            <ul className="absolute left-64 ml-2 w-32 top-80 text-sm mt-6 bg-white border rounded-md shadow-md z-10">
+            <ul className="absolute left-64 ml-2 w-32 top-80 text-sm mt-12 bg-white border rounded-md shadow-md z-10">
               {labels.map((label) => (
                 <li
                   key={label}
@@ -260,6 +241,7 @@ export const PomodoroComponent = () => {
           </div>
         </div>
       </div>
+
       <div className="flex flex-col mt-5 items-center gap-1">
         <div className="text-gray-400">
           #<span>{counter}</span>

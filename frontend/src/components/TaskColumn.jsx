@@ -27,6 +27,7 @@ export const TaskColumn = ({ title, tasks, status, setActiveCard, onDrop }) => {
                     label={task.label}
                     index={index}
                     setActiveCard={setActiveCard}
+                    status={status}
                   />
                   <DropArea onDrop={() => onDrop(status, index + 1)} />
                 </React.Fragment>

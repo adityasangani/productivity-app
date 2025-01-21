@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const CalendarMonth = () => {
+const CalendarMonth = ({month}) => {
   const daysWritten = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
   const monthsWritten = [
     "January",

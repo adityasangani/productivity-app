@@ -8,7 +8,7 @@ export const TaskComponent = () => {
   const [newTaskClick, setNewTaskClick] = useState(false);
   const [allTasks, setAllTasks] = useState([]);
   const [activeCard, setActiveCard] = useState(null);
-  const onDrop = (status, position) => {
+  const onDrop = async (status, position) => {
     if (activeCard === null || activeCard === undefined) return;
     const taskToMove = allTasks[activeCard];
     const updatedTasks = allTasks.filter((task, index) => index !== activeCard);
@@ -17,6 +17,13 @@ export const TaskComponent = () => {
       status: status,
     });
     setAllTasks(updatedTasks);
+    await axios.put(
+      `${BACKEND_URL}/api/v1/user/tasks/${taskToMove.id}`,
+      { status },
+      {
+        withCredentials: true,
+      }
+    );
   };
   useEffect(() => {
     const fetchTasks = async () => {

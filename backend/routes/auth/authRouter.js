@@ -15,10 +15,15 @@ const capitalizeName = (name) => {
 };
 
 router.use(cookieParser());
+const allowedOrigins = [
+  "https://productivity-app-pearl.vercel.app", //for vercel
+  "http://localhost:5173", //for local
+];
+
 router.use(
   cors({
+    origin: allowedOrigins, // specify your Vercel site's URL
     credentials: true,
-    origin: "http://localhost:5173",
   })
 );
 

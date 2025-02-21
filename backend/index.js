@@ -5,14 +5,14 @@ const userRouter = require("./routes/user/userRouter");
 const PORT = process.env.PORT || 8080;
 
 const app = express();
-// const allowedOrigins = [
-//   "https://productivity-app-pearl.vercel.app", //for vercel
-//   "http://localhost:5173", //for local
-// ];
+const allowedOrigins = [
+  "https://productivity-app-pearl.vercel.app", //for vercel
+  "http://localhost:5173", //for local
+];
 
 app.use(
   cors({
-    origin: "https://productivity-app-pearl.vercel.app", // specify your Vercel site's URL
+    origin: allowedOrigins, //vercel site's URL
     credentials: true,
   })
 );

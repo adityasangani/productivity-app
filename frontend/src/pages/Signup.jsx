@@ -26,6 +26,10 @@ const Signup = () => {
         postInputs,
         {
           withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+            "Content-Length": JSON.stringify(postInputs).length, // Explicit length
+          },
         }
       );
       const token = Cookies.get("token");

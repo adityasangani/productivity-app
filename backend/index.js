@@ -5,27 +5,15 @@ const userRouter = require("./routes/user/userRouter");
 const PORT = process.env.PORT || 8080;
 
 const app = express();
-const allowedOrigins = [
-  "https://productivity-app-pearl.vercel.app", //for vercel
-  "http://localhost:5173", //for local
-];
+// const allowedOrigins = [
+//   "https://productivity-app-pearl.vercel.app", //for vercel
+//   "http://localhost:5173", //for local
+// ];
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // Allow requests with no origin (like curl or Postman)
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      } else {
-        return callback(
-          new Error("CORS not allowed for this origin: " + origin)
-        );
-      }
-    },
+    origin: "https://productivity-app-pearl.vercel.app", // specify your Vercel site's URL
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 

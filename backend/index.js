@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 const allowedOrigins = [
-  "https://productivity-kcsjwzb0w-adityas-projects-57193f84.vercel.app", //for vercel
+  "https://productivity-app-pearl.vercel.app/", //for vercel
   "http://localhost:5173", //for local
 ];
 

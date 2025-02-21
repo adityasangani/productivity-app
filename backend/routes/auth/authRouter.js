@@ -52,9 +52,9 @@ router.post("/signup", async (req, res) => {
       jwtSecret
     );
     res.cookie("token", token, {
-      sameSite: "lax",
+      sameSite: "none",
       maxAge: 3 * 24 * 60 * 60 * 1000,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       path: "/",
     });
     res.send({
@@ -93,9 +93,9 @@ router.post("/signin", async (req, res) => {
       jwtSecret
     );
     res.cookie("token", token, {
-      sameSite: "lax",
+      sameSite: "none",
       maxAge: 3 * 24 * 60 * 60 * 1000,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       path: "/",
     });
 

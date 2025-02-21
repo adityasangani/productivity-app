@@ -1,4 +1,4 @@
-import cors from "cors";
+const cors = require("cors");
 const express = require("express");
 const authRouter = require("./routes/auth/authRouter");
 const userRouter = require("./routes/user/userRouter");

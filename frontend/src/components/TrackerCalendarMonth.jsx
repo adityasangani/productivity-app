@@ -1,24 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { BACKEND_URL } from "../config";
 
 const TrackerCalendarMonth = ({ month }) => {
   const daysWritten = ["S", "M", "T", "W", "T", "F", "S"];
   const monthsWritten = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+    "Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   const currentYear = new Date().getFullYear();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [days, setDays] = useState([]);
+  const [studyLogs, setStudyLogs] = useState({});
 
   useEffect(() => {
     const firstDay = new Date(currentYear, month, 1).getDay();
@@ -37,6 +27,21 @@ const TrackerCalendarMonth = ({ month }) => {
     }
 
     setDays(tempDays);
+    const fetchStudyLog = async() => {
+      try {
+        const response = await axios.get(`${BACKEND_URL}/api/v1/users/studylogs`, {withCredentials:true});
+        if(response.data){
+            const logs = response.data.reduce((accumulator, log) => {
+              const dateStr = new Date(log.date)
+              return accumulator + log.totalTime;
+            }, 0)
+        } else{
+          console.log("Study log does not exist :(");
+        }
+      } catch (error) {
+        console.error("Error fetching study logs: ", error);
+      }      
+    }
   }, [currentDate]);
 
   const getDayClass = (day) => {

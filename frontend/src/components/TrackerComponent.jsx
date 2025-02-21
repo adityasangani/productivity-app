@@ -21,40 +21,6 @@ export const TrackerComponent = () => {
           <TrackerCalendarMonth month={10} />
           <TrackerCalendarMonth month={11} />
         </div>
-
-        {/* <div>
-          <TrackerCalendarMonth month={1} />
-        </div>
-        <div>
-          <TrackerCalendarMonth month={2} />
-        </div>
-        <div>
-          <TrackerCalendarMonth month={3} />
-        </div>
-        <div>
-          <TrackerCalendarMonth month={4} />
-        </div>
-        <div>
-          <TrackerCalendarMonth month={5} />
-        </div>
-        <div>
-          <TrackerCalendarMonth month={6} />
-        </div>
-        <div>
-          <TrackerCalendarMonth month={7} />
-        </div>
-        <div>
-          <TrackerCalendarMonth month={8} />
-        </div>
-        <div>
-          <TrackerCalendarMonth month={9} />
-        </div>
-        <div>
-          <TrackerCalendarMonth month={10} />
-        </div>
-        <div>
-          <TrackerCalendarMonth month={11} />
-        </div> */}
       </div>
     </div>
   );

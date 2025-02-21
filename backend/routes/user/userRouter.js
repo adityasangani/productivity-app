@@ -95,6 +95,32 @@ router.get("/tasks/:id", isAuthenticated, async (req, res) => {
   }
 });
 
+router.get("/studylogs", isAuthenticated, async (req, res) => {
+  const userId = req.userId;
+  try {
+    const studyLogsData = await prisma.studyLog.findMany({
+      where: {
+        userId: userId
+      }
+    })
+    if(studyLogsData){
+      res.status(200).json({
+        message:"Study log retrieved successfully.",
+        studyLogsData: studyLogsData
+      })
+    } else{
+      res.status(404).json({
+        message:"Study log not found."
+      })
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: "An error occurred while retrieving the study log.",
+      error: error.message,
+    })
+  }
+});
+
 router.put("/tasks/:id", isAuthenticated, async (req, res) => {
   const taskId = parseInt(req.params.id);
   const userId = req.userId;

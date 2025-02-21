@@ -36,7 +36,6 @@ router.post("/signup", async (req, res) => {
         password: userDetails.password,
       },
     });
-    console.log("hi");
     const userId = newUser.id;
     const initials = newUser.firstName[0] + newUser.lastName[0];
     const userFirstName = newUser.firstName;

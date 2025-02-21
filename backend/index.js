@@ -12,10 +12,20 @@ const allowedOrigins = [
 
 app.use(
   cors({
-    origin: allowedOrigins,
-    credentials: true, //cookies or authentication
-    methods: ["GET", "POST", "PUT", "DELETE"], //allowed HTTP methods
-    allowedHeaders: ["Content-Type", "Authorization"], //allowed headers
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like curl or Postman)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(
+          new Error("CORS not allowed for this origin: " + origin)
+        );
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 

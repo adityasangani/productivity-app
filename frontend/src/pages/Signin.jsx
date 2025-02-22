@@ -26,7 +26,8 @@ const Signin = () => {
           withCredentials: true,
         }
       );
-      const token = Cookies.get("token");
+      // const token = Cookies.get("token");
+      const token = response.data.token;
       console.log(token);
 
       if (token) {

@@ -41,7 +41,7 @@ router.post("/signup", async (req, res) => {
         password: userDetails.password,
       },
     });
-    const userId = newUser.id;
+    const userId = newUser.id; //prisma autogenerates an id key when we do prisma.user.create
     const initials = newUser.firstName[0] + newUser.lastName[0];
     const userFirstName = newUser.firstName;
     const userLastName = newUser.lastName;
@@ -102,7 +102,21 @@ router.post("/signin", async (req, res) => {
     res.json({
       message: "User found",
       userId,
+      token,
     });
+  }
+});
+
+router.get("/validate", (req, res) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  try {
+    const decoded = jwt.verify(token, jwtSecret);
+    res.json({ token });
+  } catch (error) {
+    res.status(401).json({ message: "Invalid token" });
   }
 });
 

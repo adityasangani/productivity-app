@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Switcher1 from "./Switcher1";
 import { taskAtom, userAtom } from "../store/atoms/atoms";
 import { useRecoilState } from "recoil";
-import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 
@@ -12,9 +10,6 @@ const NewTask = ({ newTaskClick, setNewTaskClick, onAddTask }) => {
   const [toggleClick, setToggleClick] = useState(false);
   const [labelClick, setLabelClick] = useState(false);
   const [selectedLabel, setSelectedLabel] = useState("Choose Label");
-  const token = Cookies.get("token");
-  const decodedToken = jwtDecode(token);
-  const userId = decodedToken.userId;
 
   const handleLabelSelect = (label) => {
     setSelectedLabel(label);
@@ -151,10 +146,6 @@ const NewTask = ({ newTaskClick, setNewTaskClick, onAddTask }) => {
       <div
         onClick={() => {
           setNewTaskClick(!newTaskClick);
-          setTask({
-            ...task,
-            userId: userId,
-          });
           sendTaskBackend();
         }}
         className="flex justify-center w-full mt-2 border bg-leftNavCompSelect h-10 items-center rounded-md cursor-pointer hover:bg-leftNavCompSelectLight transition-transform duration-150 transform active:scale-95 active:shadow-inner"

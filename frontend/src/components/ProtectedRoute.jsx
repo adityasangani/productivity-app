@@ -1,34 +1,40 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { userAtom } from "../store/atoms/atoms.js";
-import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { BACKEND_URL } from "../config.js";
 
 export const ProtectedRoute = ({ children }) => {
   const [user, setUser] = useRecoilState(userAtom);
   const userId = user.userId;
   const navigate = useNavigate();
-  const token = Cookies.get("token");
-  if (token) {
-    try {
-      const decodedToken = jwtDecode(token);
-      if (!user.userId) {
-        // Only set the user if it's not already set
-        setUser({
-          userId: decodedToken.userId,
-          initials: decodedToken.initials,
-          firstName: decodedToken.firstName,
-          lastName: decodedToken.lastName,
-          email: decodedToken.email,
-        });
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get(
+          `${BACKEND_URL}/api/v1/auth/validate`,
+          {
+            withCredentials: true,
+          }
+        );
+        const token = response.data.token;
+        if (token) {
+          const decodedToken = jwtDecode(token);
+          setUser({
+            userId: decodedToken.userId,
+            initials: decodedToken.initials,
+            firstName: decodedToken.firstName,
+            lastName: decodedToken.lastName,
+            email: decodedToken.email,
+          });
+        }
+      } catch (error) {
+        console.error("Token validation failed:", error);
+        navigate("/signin");
       }
-    } catch (e) {
-      console.error("Failed to decode token: ", e);
-      navigate("/signin");
-    }
-  } else {
-    navigate("/signin");
-  }
-
+    };
+    fetchUser();
+  }, [navigate, setUser]);
   return children;
 };

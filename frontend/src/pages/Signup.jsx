@@ -8,7 +8,7 @@ import { BACKEND_URL } from "../config";
 import { jwtDecode } from "jwt-decode";
 import { useRecoilState } from "recoil";
 import axios from "axios";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const Signup = () => {
           },
         }
       );
-      const token = Cookies.get("token");
+      const token = response.data.token;
       if (token) {
         const decodedToken = jwtDecode(token);
         console.log(decodedToken);

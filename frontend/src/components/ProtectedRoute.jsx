@@ -4,6 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { BACKEND_URL } from "../config.js";
+import axios from "axios";
 
 export const ProtectedRoute = ({ children }) => {
   const [user, setUser] = useRecoilState(userAtom);

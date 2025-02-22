@@ -43,6 +43,7 @@ const Signup = () => {
           lastName: decodedToken.lastName,
           email: decodedToken.email,
         });
+        console.log("hello i am here");
         navigate("/dashboard");
       }
     } catch (error) {

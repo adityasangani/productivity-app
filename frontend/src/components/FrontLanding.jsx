@@ -41,7 +41,7 @@ export const FrontLanding = () => {
             </div>
           </div>
         </div>
-        <div className="md:hidden flex flex-col w-full gap-3 mt-6">
+        <div className="md:hidden flex flex-col w-full gap-3 lg:mt-6">
           <div onClick={() => smoothScroll("faqLanding")}>
             <button className="text-white font-semibold cursor-pointer py-1 px-2 rounded-xl border-2 w-full border-blueBorder hover:bg-blueBorder">
               Learn More

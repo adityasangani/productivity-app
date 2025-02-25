@@ -23,12 +23,12 @@ export const LandingPage = () => {
         <div>
           <CtaLanding />
         </div>
-        <div className="bg-amber-50 flex flex-col py-5 items-center">
-          <div className="flex items-center gap-1 ml-10 mt-10">
+        <div className="bg-amber-50 flex flex-col py-5 items-center text-center mt-auto">
+          <div className="flex items-center gap-2 mt-10">
             <Logo size={"4"} mode={logo_black} />
             <div className="font-semibold text-sm">ProductivityPro Inc.</div>
           </div>
-          <div className="ml-10 text-grey mt-5 text-xs">
+          <div className="text-grey mt-3 text-xs">
             © 2024 ProductivityPro Inc. All rights reserved.
           </div>
         </div>

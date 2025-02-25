@@ -3,25 +3,24 @@ import Faq from "./Faq";
 
 export const FaqLanding = () => {
   return (
-    <div className="flex flex-col h-screen items-center bg-gradient-to-b from-white to-amber-50">
-      <div className="flex flex-col">
-        <div className="mt-10">
-          <div className="text-2xl font-bold">Boost Your Productivity</div>
-        </div>
-        <div className="text-grey my-4 font-medium flex justify-center">
+    <div className="flex flex-col items-center min-h-screen bg-gradient-to-b from-white to-amber-50 px-4 md:px-16">
+      {/* Heading Section */}
+      <div className="flex flex-col text-center md:text-left mt-10 max-w-[90%] md:max-w-[60%]">
+        <div className="text-2xl font-bold">Boost Your Productivity</div>
+        <div className="text-grey my-4 font-medium flex justify-center md:justify-start">
           <div>Track Habits Effectively</div>
         </div>
       </div>
-      <div className="flex flex-col gap-5">
+
+      {/* FAQ Section */}
+      <div className="flex flex-col gap-5 w-full md:w-3/4">
         <Faq
           question="What is a Pomodoro timer?"
-          description="A Pomodoro timer is a time management tool that breaks work into
-            intervals, typically 25 minutes, separated by short breaks. It's
-            designed to improve focus and productivity."
+          description="A Pomodoro timer is a time management tool that breaks work into intervals, typically 25 minutes, separated by short breaks. It's designed to improve focus and productivity."
         />
         <Faq
           question="Can I set a custom timer?"
-          description="Yes, you can set a custom timer for your activities. Simply select your desired duration, for example, 60 minutes, and the website will handle the rest"
+          description="Yes, you can set a custom timer for your activities. Simply select your desired duration, for example, 60 minutes, and the website will handle the rest."
         />
         <Faq
           question="How is my activity logged?"

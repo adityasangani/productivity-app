@@ -8,7 +8,6 @@ import { BACKEND_URL } from "../config";
 import { jwtDecode } from "jwt-decode";
 import { useRecoilState } from "recoil";
 import axios from "axios";
-// import Cookies from "js-cookie";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -19,6 +18,7 @@ const Signup = () => {
     lastName: "",
     password: "",
   });
+
   async function sendRequest() {
     try {
       const response = await axios.post(
@@ -28,14 +28,13 @@ const Signup = () => {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",
-            "Content-Length": JSON.stringify(postInputs).length, // Explicit length
+            "Content-Length": JSON.stringify(postInputs).length,
           },
         }
       );
       const token = response.data.token;
       if (token) {
         const decodedToken = jwtDecode(token);
-        console.log(decodedToken);
         setUser({
           userId: decodedToken.userId,
           initials: decodedToken.initials,
@@ -43,92 +42,82 @@ const Signup = () => {
           lastName: decodedToken.lastName,
           email: decodedToken.email,
         });
-        console.log("hello i am here");
         navigate("/dashboard");
       }
     } catch (error) {
       console.error("Error signing up: ", error);
     }
   }
+
   return (
-    <div className="h-screen w-screen bg-gradient-blue grid grid-cols-12 ">
-      <div className="col-span-4 flex flex-col">
+    <div className="h-screen w-screen bg-gradient-blue flex flex-col lg:grid lg:grid-cols-12">
+      {/* Left Section */}
+      <div className="lg:col-span-4 flex flex-col items-center lg:items-start p-6">
         <div
-          onClick={() => {
-            navigate("/");
-          }}
-          className="m-5 cursor-pointer"
+          onClick={() => navigate("/")}
+          className="cursor-pointer self-start lg:self-auto"
         >
           <Logo size={8} />
         </div>
-        <div className="m-7 text-white font-bold text-6xl">
+        <div className="mt-5 text-white font-bold text-4xl lg:text-6xl text-center lg:text-left">
           Track. Focus. Achieve.
         </div>
-        <img src={illustration} className="relative left-48 w-4/5" alt="" />
+        <img
+          src={illustration}
+          className="w-4/5 lg:w-3/4 mt-5 lg:mt-10"
+          alt=""
+        />
       </div>
-      <div className="col-span-8 bg-white rounded-tl-3xl rounded-bl-3xl flex justify-center">
-        <div className="flex flex-col mt-32 w-4/6 max-w-full">
-          <div className="flex ">
-            <div className="text-3xl font-bold">Create Account</div>
+
+      {/* Right Section */}
+      <div className="lg:col-span-8 h-full bg-white rounded-tl-3xl rounded-tr-3xl md:rounded-tr-none md:rounded-tl-3xl md:rounded-bl-3xl flex justify-center p-6">
+        <div className="flex flex-col w-full max-w-lg">
+          <div className="text-3xl font-bold text-center lg:text-left">
+            Create Account
           </div>
-          <div className="flex mt-10">
-            <div className="flex flex-col gap-2 flex-grow">
-              <div className="flex gap-5">
-                <LabeledInput
-                  onChange={(e) => {
-                    setPostInputs({
-                      ...postInputs,
-                      firstName: e.target.value,
-                    });
-                  }}
-                  inputname="First Name"
-                />
-                <LabeledInput
-                  onChange={(e) => {
-                    setPostInputs({
-                      ...postInputs,
-                      lastName: e.target.value,
-                    });
-                  }}
-                  inputname="Last Name"
-                />
-              </div>
+
+          <div className="mt-6 flex flex-col gap-4">
+            <div className="flex flex-col lg:flex-row gap-4">
               <LabeledInput
-                onChange={(e) => {
-                  setPostInputs({
-                    ...postInputs,
-                    email: e.target.value,
-                  });
-                }}
-                inputname="Email"
+                onChange={(e) =>
+                  setPostInputs({ ...postInputs, firstName: e.target.value })
+                }
+                inputname="First Name"
               />
               <LabeledInput
-                type="password"
-                onChange={(e) => {
-                  setPostInputs({
-                    ...postInputs,
-                    password: e.target.value,
-                  });
-                }}
-                inputname="Password"
+                onChange={(e) =>
+                  setPostInputs({ ...postInputs, lastName: e.target.value })
+                }
+                inputname="Last Name"
               />
-              <button
-                onClick={sendRequest}
-                className="bg-black text-white text-sm font-medium h-11 rounded-md transition-transform duration-150 transform active:scale-95 active:shadow-inner"
+            </div>
+            <LabeledInput
+              onChange={(e) =>
+                setPostInputs({ ...postInputs, email: e.target.value })
+              }
+              inputname="Email"
+            />
+            <LabeledInput
+              type="password"
+              onChange={(e) =>
+                setPostInputs({ ...postInputs, password: e.target.value })
+              }
+              inputname="Password"
+            />
+            <button
+              onClick={sendRequest}
+              className="bg-black text-white text-sm font-medium h-11 rounded-md transition-transform duration-150 transform active:scale-95 active:shadow-inner"
+            >
+              Create Account
+            </button>
+            <div className="text-grey text-sm text-center lg:text-left">
+              Already have an account?{" "}
+              <span
+                onClick={() => navigate("/signin")}
+                className="text-skyblue font-medium cursor-pointer"
               >
-                Create Account
-              </button>
-              <div className="text-grey text-sm">
-                Already have an account?{" "}
-                <span
-                  onClick={() => {
-                    navigate("/signin");
-                  }}
-                  className="text-skyblue font-medium cursor-pointer"
-                >
-                  Login
-                </span>
-              </div>
+                Login
+              </span>
             </div>
           </div>
         </div>

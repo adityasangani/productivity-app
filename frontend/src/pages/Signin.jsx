@@ -17,22 +17,17 @@ const Signin = () => {
     email: "",
     password: "",
   });
+
   async function sendRequest() {
     try {
       const response = await axios.post(
         `${BACKEND_URL}/api/v1/auth/signin`,
         postInputs,
-        {
-          withCredentials: true,
-        }
+        { withCredentials: true }
       );
-      // const token = Cookies.get("token");
       const token = response.data.token;
-      console.log(token);
-
       if (token) {
         const decodedToken = jwtDecode(token);
-        console.log("hi");
         setUser({
           userId: decodedToken.userId,
           initials: decodedToken.initials,
@@ -40,72 +35,67 @@ const Signin = () => {
           lastName: decodedToken.lastName,
           email: decodedToken.email,
         });
-        console.log("hi");
         navigate("/dashboard");
       }
     } catch (error) {
-      console.error("Error signing up: ", error);
+      console.error("Error signing in: ", error);
     }
   }
+
   return (
-    <div className="h-screen w-screen bg-gradient-blue grid grid-cols-12 ">
-      <div className="col-span-4 flex flex-col">
+    <div className="h-screen w-screen bg-gradient-blue flex flex-col lg:grid lg:grid-cols-12">
+      {/* Left Section */}
+      <div className="lg:col-span-4 flex flex-col items-center lg:items-start p-6">
         <div
-          onClick={() => {
-            navigate("/");
-          }}
-          className="m-5 cursor-pointer"
+          onClick={() => navigate("/")}
+          className="cursor-pointer self-start"
         >
           <Logo size={8} />
         </div>
-        <div className="m-7 text-white font-bold text-6xl">
+        <div className="mt-5 text-white font-bold text-4xl lg:text-6xl text-center lg:text-left">
           Track. Focus. Achieve.
         </div>
-        <img src={illustration} className="relative left-48 w-4/5" alt="" />
+        <img
+          src={illustration}
+          className="w-4/5 lg:w-3/4 mt-5 lg:mt-10"
+          alt="Illustration"
+        />
       </div>
-      <div className="col-span-8 bg-white rounded-tl-3xl rounded-bl-3xl flex justify-center">
-        <div className="flex flex-col mt-32 w-4/6 max-w-full">
-          <div className="flex ">
-            <div className="text-3xl font-bold">Login to your Account</div>
+
+      {/* Right Section */}
+      <div className="lg:col-span-8 h-full bg-white rounded-tl-3xl rounded-tr-3xl md:rounded-tr-none md:rounded-tl-3xl md:rounded-bl-3xl flex justify-center p-6">
+        <div className="flex flex-col w-full max-w-lg">
+          <div className="text-3xl font-bold text-center lg:text-left">
+            Login to your Account
           </div>
-          <div className="flex mt-10">
-            <div className="flex flex-col gap-2 flex-grow">
-              <LabeledInput
-                onChange={(e) => {
-                  setPostInputs({
-                    ...postInputs,
-                    email: e.target.value,
-                  });
-                }}
-                inputname="Email"
-              />
-              <LabeledInput
-                type="password"
-                onChange={(e) => {
-                  setPostInputs({
-                    ...postInputs,
-                    password: e.target.value,
-                  });
-                }}
-                inputname="Password"
-              />
-              <button
-                onClick={sendRequest}
-                className="bg-black text-white text-sm font-medium h-11 rounded-md transition-transform duration-150 transform active:scale-95 active:shadow-inner"
+          <div className="mt-6 flex flex-col gap-4">
+            <LabeledInput
+              onChange={(e) =>
+                setPostInputs({ ...postInputs, email: e.target.value })
+              }
+              inputname="Email"
+            />
+            <LabeledInput
+              type="password"
+              onChange={(e) =>
+                setPostInputs({ ...postInputs, password: e.target.value })
+              }
+              inputname="Password"
+            />
+            <button
+              onClick={sendRequest}
+              className="bg-black text-white text-sm font-medium h-11 rounded-md transition-transform duration-150 transform active:scale-95 active:shadow-inner"
+            >
+              Login
+            </button>
+            <div className="text-grey text-sm text-center lg:text-left">
+              Don't have an account?{" "}
+              <span
+                onClick={() => navigate("/signup")}
+                className="text-skyblue font-medium cursor-pointer"
               >
-                Login
-              </button>
-              <div className="text-grey text-sm">
-                Don't have an account?{" "}
-                <span
-                  onClick={() => {
-                    navigate("/signup");
-                  }}
-                  className="text-skyblue font-medium cursor-pointer"
-                >
-                  Sign up
-                </span>
-              </div>
+                Sign up
+              </span>
             </div>
           </div>
         </div>

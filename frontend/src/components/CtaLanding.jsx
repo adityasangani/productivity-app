@@ -38,7 +38,7 @@ const CtaLanding = () => {
       {/* Right Block - Image Section */}
       <div className="w-full md:w-1/2 flex justify-center mt-10 md:mt-0">
         <img
-          className="w-full md:mt-36  md:mx-0 mx-auto"
+          className="w-full md:mt-36  md:mx-0 mx-auto rounded-sm"
           src={community}
           alt="Join Community"
         />

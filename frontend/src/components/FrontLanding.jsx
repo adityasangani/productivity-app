@@ -25,10 +25,10 @@ export const FrontLanding = () => {
               Read More
             </span>
           </button>
-          <h1 className="mt-6 font-semibold text-white text-3xl md:text-5xl">
+          <h1 className="mt-6 font-semibold text-white text-3xl md:text-5xl 3xl:text-7xl">
             Welcome to Your Ultimate Productivity Dashboard
           </h1>
-          <p className="text-white mt-5 text-lg md:text-xl">
+          <p className="text-white mt-5 text-lg md:text-xl 3xl:text-3xl">
             Track habits, use Pomodoro timer, and visualize your progress with
             our all-in-one productivity tool.
           </p>

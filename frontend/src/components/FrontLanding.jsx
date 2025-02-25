@@ -9,11 +9,11 @@ import { smoothScroll } from "../functionality";
 export const FrontLanding = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col bg-skyblue h-screen">
+    <div className="flex flex-col bg-skyblue min-h-screen">
       <div className="">
         <Appbar />
       </div>
-      <div className="flex mt-36 h-64 gap-20">
+      <div className="flex mt-36 h-64 gap-20 bg">
         <div className="flex flex-col ml-16 w-1/2 ">
           <div>
             <button className="text-white cursor-pointer py-1 px-2 rounded-xl border-2 border-blueBorder">

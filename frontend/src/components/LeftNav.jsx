@@ -15,11 +15,13 @@ import { LeftNavComp } from "./LeftNavComp";
 
 export const LeftNav = ({ setSelectedComponent }) => {
   const [selected, setSelected] = useState("dashboard");
+
   function onClick(e) {
     setSelected(e);
   }
+
   return (
-    <div className="h-screen border-r bg-white shadow-sm w-60 flex flex-col gap-10 fixed">
+    <div className="h-screen border-r bg-white shadow-sm w-60 flex flex-col gap-10 fixed lg:relative">
       <div className="w-full flex justify-center cursor-pointer border-b mb-4 h-16">
         <div className="flex items-center gap-3">
           <Logo size={"8"} mode={logoblack} />
@@ -46,7 +48,6 @@ export const LeftNav = ({ setSelectedComponent }) => {
           setSelectedComponent("task");
         }}
       />
-
       <LeftNavComp
         lightIcon={timerIcon3}
         darkIcon={timerIcon3Deselect}
@@ -57,7 +58,6 @@ export const LeftNav = ({ setSelectedComponent }) => {
           setSelectedComponent("pomodoro");
         }}
       />
-
       <LeftNavComp
         lightIcon={tracker}
         darkIcon={trackerDeselect}
@@ -68,7 +68,6 @@ export const LeftNav = ({ setSelectedComponent }) => {
           setSelectedComponent("tracker");
         }}
       />
-
       <LeftNavComp
         lightIcon={setting}
         darkIcon={settingDeselect}

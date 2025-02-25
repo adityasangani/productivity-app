@@ -71,7 +71,7 @@ const Signup = () => {
 
       {/* Right Section */}
       <div className="lg:col-span-8 h-full bg-white rounded-tl-3xl rounded-tr-3xl md:rounded-tr-none md:rounded-tl-3xl md:rounded-bl-3xl flex justify-center p-6">
-        <div className="flex flex-col w-full max-w-lg">
+        <div className="flex flex-col w-full max-w-lg lg:mt-14">
           <div className="text-3xl font-bold text-center lg:text-left">
             Create Account
           </div>

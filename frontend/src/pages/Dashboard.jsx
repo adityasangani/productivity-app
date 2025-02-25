@@ -11,6 +11,8 @@ import SettingComponent from "../components/SettingComponent";
 
 export const Dashboard = () => {
   const [selectedComponent, setSelectedComponent] = useState("dashboard");
+  const [isNavOpen, setIsNavOpen] = useState(false); // Toggle for mobile nav
+
   const renderContent = () => {
     switch (selectedComponent) {
       case "dashboard":
@@ -29,11 +31,27 @@ export const Dashboard = () => {
   };
 
   return (
-    <>
-      <LeftNav setSelectedComponent={setSelectedComponent} />
-      <TopBar />
-      <RightBar />
-      <DashboardFrame>{renderContent()}</DashboardFrame>
-    </>
+    <div className="flex h-screen">
+      {/* Left Navigation */}
+      <div
+        className={`fixed z-50 lg:relative ${
+          isNavOpen ? "block" : "hidden"
+        } lg:block`}
+      >
+        <LeftNav setSelectedComponent={setSelectedComponent} />
+      </div>
+
+      {/* Main Content Area */}
+      <div className="flex flex-grow flex-col">
+        <TopBar onMenuClick={() => setIsNavOpen(!isNavOpen)} />{" "}
+        {/* Toggle button */}
+        <DashboardFrame>{renderContent()}</DashboardFrame>
+      </div>
+
+      {/* Right Sidebar (Hide on small screens) */}
+      <div className="hidden lg:block">
+        <RightBar />
+      </div>
+    </div>
   );
 };

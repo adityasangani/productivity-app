@@ -4,22 +4,23 @@ import { DropArea } from "./DropArea";
 
 export const TaskColumn = ({ title, tasks, status, setActiveCard, onDrop }) => {
   return (
-    <div className="mx-3">
-      {/* Title above the box */}
-      {/* <div className="text-sm font-semibold mb-2 mx-2">{title}</div> */}
+    <div className="mx-2 sm:mx-3 w-full sm:w-1/3 min-w-[250px]">
+      {/* Title */}
+      <div className="text-sm font-semibold mx-2 mb-2 text-center sm:text-left">
+        {title}
+      </div>
 
-      {/* Content box */}
-      <div className="flex rounded-md px-3 flex-col">
-        <div className="text-sm font-semibold mx-2 mb-2">{title}</div>
+      {/* Content Box */}
+      <div className="flex rounded-md px-3 flex-col bg-orange-200 p-3 shadow-md">
         {/* DropArea at the top */}
         <DropArea onDrop={() => onDrop(status, 0)} />
 
-        {/* List of tasks filtered by status */}
-        <div className="flex flex-col">
+        {/* Task List */}
+        <div className="flex flex-col ">
           {tasks.map(
             (task, index) =>
               task.status === status && (
-                <React.Fragment key={index}>
+                <React.Fragment key={task.id}>
                   <TodoTask
                     id={task.id}
                     title={task.title}

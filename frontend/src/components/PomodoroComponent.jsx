@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SettingsMenu from "./SettingsMenu";
+import { FaRegSave } from "react-icons/fa";
 
 export const PomodoroComponent = () => {
   const [pomodoroTimer, setPomodoroTimer] = useState(25);
@@ -27,6 +28,7 @@ export const PomodoroComponent = () => {
         } else if (seconds > 0) {
           setSeconds((prevSeconds) => prevSeconds - 1);
         } else if (seconds === 0) {
+          5173;
           setMinutes((prevMinutes) => prevMinutes - 1);
           setSeconds(59);
         }
@@ -88,7 +90,7 @@ export const PomodoroComponent = () => {
 
           {/* Modal */}
           <div className="fixed inset-0 flex justify-center items-center z-20">
-            <div className="w-1/2 ml-28">
+            <div className="w-1/2 md:ml-28">
               <SettingsMenu
                 settingClick={settingClick}
                 setSettingClick={setSettingClick}
@@ -109,15 +111,15 @@ export const PomodoroComponent = () => {
       )}
       <div
         className={`flex flex-col ${
-          selectedElement === "pomodoro" && "bg-yellow-300"
+          selectedElement === "pomodoro" && "bg-orange-100"
         } ${selectedElement === "shortbreak" && "bg-blue-300"} ${
           selectedElement === "longbreak" && "bg-purple-300"
-        } w-3/4 mx-auto mt-5 rounded-md items-center gap-12 p-5 transition duration-700 ease-in-out`}
+        } max-w-3/4 lg:mx-auto mt-5 rounded-md items-center gap-12 p-5 transition duration-700 ease-in-out`}
       >
         <div className="flex justify-center gap-2">
           <div
             className={`py-1 px-2 text-sm rounded-md cursor-pointer hover:bg-opacity-85 transition duration-150 ease-in-out ${
-              selectedElement === "pomodoro" && "bg-yellow-500 bg-opacity-75"
+              selectedElement === "pomodoro" && "bg-orange-300 bg-opacity-75"
             }`}
             onClick={() => {
               setMinutes(pomodoroTimer);
@@ -151,10 +153,11 @@ export const PomodoroComponent = () => {
           >
             Long Break
           </div>
-          <div onClick={() => {
-            
-          }} className="py-1 px-2 text-sm rounded-md cursor-pointer bg-orange-500">
-            Save Progress
+          <div
+            onClick={() => {}}
+            className="py-1 px-2 text-lg rounded-md cursor-pointer "
+          >
+            <FaRegSave />
           </div>
           <div
             onClick={() => setSettingClick(true)}
@@ -181,20 +184,20 @@ export const PomodoroComponent = () => {
             </svg>
           </div>
         </div>
-        <div className="text-9xl flex font-bold">
+        <div className="text-8xl lg:text-9xl flex font-bold">
           {minutes < 10 ? "0" + minutes : minutes}:
           {seconds < 10 ? "0" + seconds : seconds}
           {/* Display time in MM:SS */}
         </div>
-        <div className="flex items-center justify-center mb-4">
+        <div className="flex items-center justify-center mb-4 mr-10 ">
           <button
-            className="rounded-md  shadow-md ml-6 p-3 w-32 text-lg font-bold bg-red-500"
+            className="rounded-md shadow-md lg:ml-6 p-3 w-20 text-md lg:w-32 lg:text-lg font-bold bg-red-500"
             onClick={() => setLabelClick(!labelClick)}
           >
             <div className="">{selectedLabel}</div>
           </button>
           {labelClick && (
-            <ul className="absolute left-64 ml-2 w-32 top-80 text-sm mt-12 bg-white border rounded-md shadow-md z-10">
+            <ul className="absolute left-64 lg:ml-2 w-20 lg:w-32 top-80 text-sm mt-12 bg-white border rounded-md shadow-md z-10">
               {labels.map((label) => (
                 <li
                   key={label}
@@ -210,18 +213,18 @@ export const PomodoroComponent = () => {
           )}
           <button
             onClick={handleStartStop}
-            className="rounded-md  shadow-md ml-6 p-3 w-32 text-lg font-bold bg-red-500"
+            className="rounded-md  shadow-md ml-6 p-3 w-20 text-md lg:w-32 lg:text-lg font-bold bg-red-500"
           >
             {isRunning ? "PAUSE" : "START"}
           </button>
           <button
             onClick={handleReset}
-            className="rounded-md ml-8 shadow-md p-3 w-32 text-lg font-bold bg-red-500"
+            className="rounded-md ml-8 shadow-md p-3 w-20 text-md lg:w-32 lg:text-lg font-bold bg-red-500"
           >
             RESET
           </button>
           <div
-            className="relative left-7 cursor-pointer"
+            className="relative left-4 cursor-pointer"
             onClick={increaseCounter}
           >
             <svg

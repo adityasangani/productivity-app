@@ -39,7 +39,7 @@ const NewTask = ({ newTaskClick, setNewTaskClick, onAddTask }) => {
   }
 
   return (
-    <div className="w-3/4 bg-white rounded-sm flex flex-col p-6">
+    <div className="w-full md:w-3/4 bg-white rounded-sm flex flex-col p-6">
       <div className="flex justify-between">
         <label htmlFor="" className="text-xs mb-2">
           TITLE
@@ -76,11 +76,11 @@ const NewTask = ({ newTaskClick, setNewTaskClick, onAddTask }) => {
           }}
           className="w-full h-11 p-2 outline-0 text-sm"
         />
-        <div className="flex items-center h-11 bg-white p-2">
-          <div className="relative flex justify-center items-center md:w-36 md:h-8 border-2 border-descriptionBlue text-sm rounded-sm cursor-pointer">
+        <div className="flex items-center h-11 bg-white p-1">
+          <div className="relative flex justify-center items-center w-32 h-8 md:w-36 md:h-8 border-2 border-descriptionBlue text-sm rounded-sm cursor-pointer">
             <div
               onClick={() => setDescriptionClick(!descriptionClick)}
-              className="text-descriptionBlue text-sm"
+              className="text-descriptionBlue text-xs md:text-sm"
             >
               + Add description
             </div>

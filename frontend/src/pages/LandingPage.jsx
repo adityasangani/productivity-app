@@ -10,21 +10,27 @@ export const LandingPage = () => {
   const navigate = useNavigate();
   return (
     <>
-      <FrontLanding />
-      <div id="featureSection">
-        <FeatureLanding />
-      </div>
-      <div id="faqLanding">
-        <FaqLanding />
-      </div>
-      <CtaLanding />
-      <div className="bg-amber-50 flex flex-col py-5 items-center">
-        <div className="flex items-center gap-1 ml-10 mt-10">
-          <Logo size={"4"} mode={logo_black} />
-          <div className="font-semibold text-sm">ProductivityPro Inc.</div>
+      <div className="max-w-screen overflow-x-hidden">
+        <div>
+          <FrontLanding />
         </div>
-        <div className="ml-10 text-grey mt-5 text-xs">
-          © 2024 ProductivityPro Inc. All rights reserved.
+        <div id="featureSection">
+          <FeatureLanding />
+        </div>
+        <div id="faqLanding">
+          <FaqLanding />
+        </div>
+        <div>
+          <CtaLanding />
+        </div>
+        <div className="bg-amber-50 flex flex-col py-5 items-center">
+          <div className="flex items-center gap-1 ml-10 mt-10">
+            <Logo size={"4"} mode={logo_black} />
+            <div className="font-semibold text-sm">ProductivityPro Inc.</div>
+          </div>
+          <div className="ml-10 text-grey mt-5 text-xs">
+            © 2024 ProductivityPro Inc. All rights reserved.
+          </div>
         </div>
       </div>
     </>
